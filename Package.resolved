@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "JavaScriptKit",
+        "repositoryURL": "https://github.com/kateinoigakukun/JavaScriptKit.git",
+        "state": {
+          "branch": "47f2bb1",
+          "revision": "47f2bb16576ba386a2c7c69c97b0fd44f470126f",
+          "version": null
+        }
+      },
+      {
+        "package": "Runtime",
+        "repositoryURL": "https://github.com/MaxDesiatov/Runtime.git",
+        "state": {
+          "branch": "wasi-build",
+          "revision": "a617ead8a125a97e69d6100e4d27922006e82e0a",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-argument-parser",
+        "repositoryURL": "https://github.com/apple/swift-argument-parser",
+        "state": {
+          "branch": null,
+          "revision": "eb51f949cdd0c9d88abba9ce79d37eb7ea1231d0",
+          "version": "0.2.0"
+        }
+      },
+      {
+        "package": "SwiftSyntax",
+        "repositoryURL": "https://github.com/apple/swift-syntax",
+        "state": {
+          "branch": "release/5.3",
+          "revision": "9f28bb048d8bc62ecafe20df9a56738155395613",
+          "version": null
+        }
+      },
+      {
+        "package": "Tokamak",
+        "repositoryURL": "https://github.com/carson-katri/Tokamak",
+        "state": {
+          "branch": "shapes",
+          "revision": "7455ca0af05a543f4290a9be5e1498a66b8c6770",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
