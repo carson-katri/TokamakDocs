@@ -39,10 +39,10 @@
       },
       {
         "package": "Tokamak",
-        "repositoryURL": "https://github.com/carson-katri/Tokamak",
+        "repositoryURL": "https://github.com/swiftwasm/Tokamak",
         "state": {
-          "branch": "shapes",
-          "revision": "7455ca0af05a543f4290a9be5e1498a66b8c6770",
+          "branch": "b26e1bc",
+          "revision": "b26e1bc820c2b73cf1d9d89cd6b09f52a94752ef",
           "version": null
         }
       }

@@ -3,6 +3,7 @@ import TokamakDOM
 import DiffModel
 
 let diffObj = try JSONDecoder().decode(Diff.self, from: Data(stringValue: diff))
+let docsObj = try JSONDecoder().decode([DocPage].self, from: Data(stringValue: docs))
 
 let document = JSObjectRef.global.document.object!
 

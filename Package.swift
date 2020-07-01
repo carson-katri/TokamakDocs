@@ -13,7 +13,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .revision("47f2bb1")),
-        .package(name: "Tokamak", url: "https://github.com/carson-katri/Tokamak", .branch("shapes")),
+        .package(name: "Tokamak", url: "https://github.com/swiftwasm/Tokamak", .revision("b26e1bc")),
         
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax", .branch("release/5.3")),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.2.0")
@@ -23,6 +23,12 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "DiffModel"
+        ),
+        .target(
+            name: "Demos",
+            dependencies: [
+                .product(name: "TokamakDOM", package: "Tokamak"),
+            ]
         ),
         .target(
             name: "TokamakAutoDiff",
@@ -37,7 +43,8 @@ let package = Package(
             dependencies: [
                 .product(name: "TokamakDOM", package: "Tokamak"),
                 "JavaScriptKit",
-                "DiffModel"
+                "DiffModel",
+                "Demos"
             ]),
         .testTarget(
             name: "TokamakDocsTests",

@@ -2,12 +2,6 @@ import TokamakDOM
 import TokamakCore
 import DiffModel
 
-struct Spacer : View {
-  var body: some View {
-    HTML("div", ["style": "flex-grow: 1"])
-  }
-}
-
 struct Divider : View {
   var body: some View {
     HTML("hr", ["style": "width: 100%;"])
@@ -25,32 +19,58 @@ struct Link : View {
   }
 }
 
-struct TokamakDocs : View {    
-  let pages: [Page] = [
-    .gettingStarted,
-    .views,
-    .progress
-//    .viewModifiers
-  ]
+enum PageSource {
+    case docs(Int)
+    case custom(Page)
+}
+
+struct TokamakDocs : View {
   
-  @State private var currentPage: Int = 0
+  @State private var currentPage: PageSource = .docs(0)
+  
+  var currentPageView: some View {
+    switch currentPage {
+    case .docs(let idx):
+      return AnyView(PageView(page: docsObj[idx], idx: idx))
+    case .custom(let page):
+      return AnyView(VStack(alignment: .leading) {
+        Text(page.name)
+          .font(.title)
+          .bold()
+        Divider()
+        page.content
+      })
+    }
+  }
   
   var body: some View {
-    return VStack {
-      Logo()
-      HStack(alignment: .top) {
-        VStack(alignment: .leading) {
-          ForEach(Array(pages.enumerated()), id: \.offset) { (offset, page) in
-            Button(action: { currentPage = offset }) {
-              Text(page.name)
-                .font(.headline)
-            }
-          }
-        }
-        PageView(page: pages[currentPage])
+    return ScrollView {
+      HStack {
         Spacer()
       }
-      Spacer()
+      VStack(alignment: .leading) {
+        Logo()
+        HStack(alignment: .top) {
+          VStack(alignment: .leading) {
+            Text("Views")
+              .font(.headline)
+              .padding()
+            ForEach(Array(docsObj.enumerated()), id: \.offset) { (offset, page) in
+              Button(action: { currentPage = .docs(offset) }) {
+                Text(page.title)
+              }
+            }
+            Text("Other")
+              .font(.headline)
+              .padding()
+            Button(action: { currentPage = .custom(.progress) }) {
+              Text("Progress")
+            }
+          }
+              .padding()
+          currentPageView
+        }
+      }
     }
   }
 }

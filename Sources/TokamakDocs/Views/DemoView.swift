@@ -21,13 +21,12 @@ struct DemoView<Content> : View where Content : View {
           .padding(.leading, CGFloat(line[..<(line.firstIndex(where: { !$0.isWhitespace }) ?? line.startIndex)].count) * 6)
         }
       }
-      Spacer()
       content
         .padding()
-      Spacer()
     }
       .padding()
       .background(0xEEEEEE as Color)
       .cornerRadius(15)
+      .padding()
   }
 }
