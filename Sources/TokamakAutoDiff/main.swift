@@ -271,7 +271,7 @@ struct TokamakAutoDiff: ParsableCommand {
                 pageDemos.append("""
                 {
                     struct Demo\(i) : View {
-                        \(demoCode.replacingOccurrences(of: "\\\"", with: "\""))
+                        \(demoCode)
                     }
                     return AnyView(Demo\(i)())
                 }
@@ -279,18 +279,17 @@ struct TokamakAutoDiff: ParsableCommand {
             }
             demos.append(pageDemos)
         }
-        try #"""
+        try ##"""
         import TokamakDOM
-        let docs = """
-        \#(
+        let docs = #"""
+        \##(
             (String(data: try JSONEncoder().encode(documentation), encoding: .utf8) ?? "")
-                .replacingOccurrences(of: "\\n", with: #"\\n"#)
         )
-        """
-        let demos: [[() -> AnyView]] = [
-            \#(demos.map { "[\($0.joined(separator: ",\n"))]" }.joined(separator: ",\n"))
-        ]
         """#
+        let demos: [[() -> AnyView]] = [
+            \##(demos.map { "[\($0.joined(separator: ",\n"))]" }.joined(separator: ",\n"))
+        ]
+        """##
             .write(to: docsOutput, atomically: true, encoding: .utf8)
         print("Saved DocPages file to \(output.path)")
         

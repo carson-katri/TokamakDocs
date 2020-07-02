@@ -42,11 +42,14 @@ func genDocs(for syntax: SourceFileSyntax) -> [DocPage] {
             if let viewName = token.nextToken?.nextToken?.text {
                 let docComments = token
                     .leadingTrivia
-                    .compactMap {
-                        $0.docComments?
-                            .dropFirst(3)
-                            .replacingOccurrences(of: "\"", with: "\\\"")
-                            .replacingOccurrences(of: #"\("#, with: #"\\("#)
+                    .compactMap { (trivia) -> String? in
+                        if let trimmed = trivia.docComments?.dropFirst(3) {
+                            return String(trimmed)
+                        } else {
+                            return nil
+                        }
+//                            .replacingOccurrences(of: "\"", with: "\\\"")
+//                            .replacingOccurrences(of: #"\("#, with: #"\\("#)
                     }
                 var docSections = parseDocs(docComments)
                 if docComments.count == 0 {
