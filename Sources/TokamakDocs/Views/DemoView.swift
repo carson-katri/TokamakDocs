@@ -1,9 +1,11 @@
 import TokamakDOM
 import TokamakCore
+import TokamakStaticHTML
 
 struct DemoView<Content> : View where Content : View {
   let code: String
   let content: Content
+  @Environment(\.colorScheme) var colorScheme
   
   init(code: String, @ViewBuilder content: () -> Content) {
     self.code = code
@@ -25,7 +27,6 @@ struct DemoView<Content> : View where Content : View {
         .padding()
     }
       .padding()
-      .background(0xEEEEEE as Color)
       .cornerRadius(15)
       .padding()
   }

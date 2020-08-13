@@ -12,8 +12,8 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .revision("47f2bb1")),
-        .package(name: "Tokamak", url: "https://github.com/swiftwasm/Tokamak", .branch("doc-gen")),
+        .package(url: "https://github.com/kateinoigakukun/JavaScriptKit.git", .revision("c90e82f")),
+        .package(name: "Tokamak", url: "https://github.com/swiftwasm/Tokamak", .branch("main")),
         
         .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax", .branch("release/5.3")),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "0.2.0")
@@ -28,6 +28,7 @@ let package = Package(
             name: "Demos",
             dependencies: [
                 .product(name: "TokamakDOM", package: "Tokamak"),
+                .product(name: "TokamakStaticHTML", package: "Tokamak"),
             ]
         ),
         .target(

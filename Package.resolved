@@ -5,8 +5,17 @@
         "package": "JavaScriptKit",
         "repositoryURL": "https://github.com/kateinoigakukun/JavaScriptKit.git",
         "state": {
-          "branch": "47f2bb1",
-          "revision": "47f2bb16576ba386a2c7c69c97b0fd44f470126f",
+          "branch": "c90e82f",
+          "revision": "c90e82fe1d576a2ccd1aae798380bf80be7885fb",
+          "version": null
+        }
+      },
+      {
+        "package": "OpenCombine",
+        "repositoryURL": "https://github.com/MaxDesiatov/OpenCombine.git",
+        "state": {
+          "branch": "observable-object-5.3",
+          "revision": "979d83e8725a504567827b89a5656bf4fd36d0c6",
           "version": null
         }
       },
@@ -14,7 +23,7 @@
         "package": "Runtime",
         "repositoryURL": "https://github.com/MaxDesiatov/Runtime.git",
         "state": {
-          "branch": "wasi-build",
+          "branch": "wasi-build-5.3",
           "revision": "a617ead8a125a97e69d6100e4d27922006e82e0a",
           "version": null
         }
@@ -33,7 +42,7 @@
         "repositoryURL": "https://github.com/apple/swift-syntax",
         "state": {
           "branch": "release/5.3",
-          "revision": "9f28bb048d8bc62ecafe20df9a56738155395613",
+          "revision": "e39d380a1877da137d45cc5dcd23676a3fd00476",
           "version": null
         }
       },
@@ -41,8 +50,8 @@
         "package": "Tokamak",
         "repositoryURL": "https://github.com/swiftwasm/Tokamak",
         "state": {
-          "branch": "3893b2a",
-          "revision": "3893b2a06958f38c9de405bae362c1e00f208e19",
+          "branch": "main",
+          "revision": "b7434a2e54b326d400eab903202e45cbb464c7b7",
           "version": null
         }
       }
