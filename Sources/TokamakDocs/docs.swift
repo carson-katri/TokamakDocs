@@ -4,259 +4,253 @@ let docs = #"""
 """#
 let demos: [[() -> AnyView]] = [
     [{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo7 : View {
-        @State private var counter: Int = 0
-var body: some View {
-  Button(action: { counter += 1 }) {
-    Text("\(counter)")
-  }
-}
-
-    }
-    return AnyView(Demo7())
-},
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo10 : View {
-        @State private var counter: Int = 0
-var body: some View {
-  Button("\(counter)", action: { counter += 1 })
-}
-    }
-    return AnyView(Demo10())
-}],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo2 : View {
-        var body: some View {
-    ZStack {
-  Text("Bottom")
-  Text("Top")
-}
-
-}
-    }
-    return AnyView(Demo2())
-}],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo5 : View {
-        var body: some View {
-    ScrollView {
-  ForEach(0..<10) {
-    Text("\($0)")
-  }
-}
-
-}
-    }
-    return AnyView(Demo5())
-},
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo9 : View {
-        var body: some View {
-    ScrollView {
-  HStack { Spacer() } // Use VStack for a horizontal ScrollView
-  ForEach(0..<10) {
-    Text("\($0)")
-  }
-}
-}
-    }
-    return AnyView(Demo9())
-}],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo2 : View {
-        var body: some View {
-    HStack {
-  Text("Hello")
-  Text("World")
-}
-}
-    }
-    return AnyView(Demo2())
-}],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo2 : View {
-        var body: some View {
-    VStack {
-  Text("Hello")
-  Text("World")
-}
-}
-    }
-    return AnyView(Demo2())
-}],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo2 : View {
-        var body: some View {
-    HStack {
-  Text("Hello")
-  Spacer()
-  Text("World")
-}
-}
-    }
-    return AnyView(Demo2())
-}],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo8 : View {
-        var body: some View {
-    HStack {
-  ForEach(0..<5) {
-    Text("\($0)")
-  }
-}
-}
-    }
-    return AnyView(Demo8())
-}],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo4 : View {
-        @State private var username: String = ""
-var body: some View {
-  TextField("Username", text: $username)
-}
-
-    }
-    return AnyView(Demo4())
-},
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo7 : View {
-        @State private var username: String = ""
-var body: some View {
-  TextField("Username", text: $username, onEditingChanged: { _ in
-    print("Username set to \(username)")
-  }, onCommit: {
-    print("Set username")
-  })
-}
-    }
-    return AnyView(Demo7())
-}],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo4 : View {
-        var body: some View {
-    Text("Hello World")
-  .font(.title)
-
-}
-    }
-    return AnyView(Demo4())
-},
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo7 : View {
-        var body: some View {
-    Text("Hello World")
-  .bold()
-  .italic()
-  .underline(true, color: .red)
-  .foregroundColor(.blue)
-}
-    }
-    return AnyView(Demo7())
-}],
-[{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo7 : View {
-        @State private var password: String = ""
-var body: some View {
-  SecureField("Password", text: $password)
-}
-
-    }
-    return AnyView(Demo7())
-},
-{ AnyView(EmptyView()) },
-{ AnyView(EmptyView()) },
-{
-    struct Demo10 : View {
-        @State private var password: String = ""
-var body: some View {
-  SecureField("Password", text: $password, onCommit: {
-    print("Set password")
-  })
-}
-    }
-    return AnyView(Demo10())
-}],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }],
-[{ AnyView(EmptyView()) }]
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo7: View {
+             @State private var counter: Int = 0
+             var body: some View {
+                 Button(action: { counter += 1 }) {
+                     Text("\(counter)")
+                 }
+             }
+         }
+         return AnyView(Demo7())
+     },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo10: View {
+             @State private var counter: Int = 0
+             var body: some View {
+                 Button("\(counter)", action: { counter += 1 })
+             }
+         }
+         return AnyView(Demo10())
+     }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo2: View {
+             var body: some View {
+                 ZStack {
+                     Text("Bottom")
+                     Text("Top")
+                 }
+             }
+         }
+         return AnyView(Demo2())
+     }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo5: View {
+             var body: some View {
+                 ScrollView {
+                     ForEach(0 ..< 10) {
+                         Text("\($0)")
+                     }
+                 }
+             }
+         }
+         return AnyView(Demo5())
+     },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo9: View {
+             var body: some View {
+                 ScrollView {
+                     HStack { Spacer() } // Use VStack for a horizontal ScrollView
+                     ForEach(0 ..< 10) {
+                         Text("\($0)")
+                     }
+                 }
+             }
+         }
+         return AnyView(Demo9())
+     }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo2: View {
+             var body: some View {
+                 HStack {
+                     Text("Hello")
+                     Text("World")
+                 }
+             }
+         }
+         return AnyView(Demo2())
+     }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo2: View {
+             var body: some View {
+                 VStack {
+                     Text("Hello")
+                     Text("World")
+                 }
+             }
+         }
+         return AnyView(Demo2())
+     }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo2: View {
+             var body: some View {
+                 HStack {
+                     Text("Hello")
+                     Spacer()
+                     Text("World")
+                 }
+             }
+         }
+         return AnyView(Demo2())
+     }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo8: View {
+             var body: some View {
+                 HStack {
+                     ForEach(0 ..< 5) {
+                         Text("\($0)")
+                     }
+                 }
+             }
+         }
+         return AnyView(Demo8())
+     }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo4: View {
+             @State private var username: String = ""
+             var body: some View {
+                 TextField("Username", text: $username)
+             }
+         }
+         return AnyView(Demo4())
+     },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo7: View {
+             @State private var username: String = ""
+             var body: some View {
+                 TextField("Username", text: $username, onEditingChanged: { _ in
+                     print("Username set to \(username)")
+                 }, onCommit: {
+                     print("Set username")
+                 })
+             }
+         }
+         return AnyView(Demo7())
+     }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo4: View {
+             var body: some View {
+                 Text("Hello World")
+                     .font(.title)
+             }
+         }
+         return AnyView(Demo4())
+     },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo7: View {
+             var body: some View {
+                 Text("Hello World")
+                     .bold()
+                     .italic()
+                     .underline(true, color: .red)
+                     .foregroundColor(.blue)
+             }
+         }
+         return AnyView(Demo7())
+     }],
+    [{ AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo7: View {
+             @State private var password: String = ""
+             var body: some View {
+                 SecureField("Password", text: $password)
+             }
+         }
+         return AnyView(Demo7())
+     },
+     { AnyView(EmptyView()) },
+     { AnyView(EmptyView()) },
+     {
+         struct Demo10: View {
+             @State private var password: String = ""
+             var body: some View {
+                 SecureField("Password", text: $password, onCommit: {
+                     print("Set password")
+                 })
+             }
+         }
+         return AnyView(Demo10())
+     }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
+    [{ AnyView(EmptyView()) }],
 ]

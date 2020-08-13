@@ -1,10 +1,10 @@
 import TokamakDOM
 
-public struct TextDemo : View {
+public struct TextDemo: View {
     public init() {}
     public var body: some View {
         VStack {
-            //#demostart
+            // #demostart
             Text("Hello World")
 
             Text("Hello World")
@@ -18,7 +18,7 @@ public struct TextDemo : View {
             Text("Hello World")
                 .fontWeight(.ultraLight)
                 .foregroundColor(.blue)
-            //#demoend
+            // #demoend
         }
     }
 }

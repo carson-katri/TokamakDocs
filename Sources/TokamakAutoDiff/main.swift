@@ -1,7 +1,7 @@
-import SwiftSyntax
 import ArgumentParser
-import Foundation
 import DiffModel
+import Foundation
+import SwiftSyntax
 
 // swift build --product TokamakAutoDiff && .build/debug/TokamakAutoDiff /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SwiftUI.framework/Modules/SwiftUI.swiftmodule/arm64.swiftinterface .build/checkouts/Tokamak/Sources/TokamakCore ./Sources/TokamakDocs/diff.swift ./Sources/TokamakDocs/docs.swift
 // --diff to regenerate the diff
@@ -14,12 +14,15 @@ extension String {
     var green: Self {
         Self.prefix + "32m" + self + Self.reset
     }
+
     var red: Self {
         Self.prefix + "31m" + self + Self.reset
     }
+
     var cyan: Self {
         Self.prefix + "36m" + self + Self.reset
     }
+
     var bold: Self {
         Self.prefix + "1m" + self + Self.reset
     }
@@ -29,11 +32,11 @@ extension TokenSyntax {
     func readUntil(_ kind: TokenKind) -> TokenSyntax {
         readUntil { $0.tokenKind == kind }
     }
-    
+
     func readUntil(_ condition: (TokenSyntax) -> Bool) -> TokenSyntax {
         readUntil(condition: condition).last ?? self
     }
-    
+
     @discardableResult
     func readUntil(condition: (TokenSyntax) -> Bool) -> [TokenSyntax] {
         var cur = self
@@ -47,14 +50,14 @@ extension TokenSyntax {
         }
         return output
     }
-    
+
     func conformsTo(_ namespace: String?, type: String) -> Bool {
         guard let namespace = namespace else {
             return conformsTo(type)
         }
         return conformsTo(namespace, type: type)
     }
-    
+
     func conformsTo(_ namespace: String, type: String) -> Bool {
         let next = readUntil(.colon).nextToken
         if next?.text == namespace {
@@ -64,7 +67,7 @@ extension TokenSyntax {
         }
         return false
     }
-    
+
     func conformsTo(_ type: String) -> Bool {
         if readUntil(.colon).nextToken?.text == type {
             return true
@@ -78,26 +81,27 @@ struct DiffInfo {
     let modifiers: [TokenSyntax]
     let shapes: [TokenSyntax]
     let shapeStyles: [TokenSyntax]
-    
+
     let viewMethods: [TokenSyntax]
-    
+
     init(views: [TokenSyntax],
          modifiers: [TokenSyntax],
          shapes: [TokenSyntax],
          shapeStyles: [TokenSyntax],
-         viewMethods: [TokenSyntax]) {
+         viewMethods: [TokenSyntax])
+    {
         self.views = views
         self.modifiers = modifiers
         self.shapes = shapes
         self.shapeStyles = shapeStyles
         self.viewMethods = viewMethods
     }
-    
+
     init(tokens: TokenSequence, namespace: String? = nil, quiet: Bool) {
         let types = tokens
             .filter {
                 $0.tokenKind == .structKeyword || // Structs
-                $0.tokenKind == .extensionKeyword // Extensions
+                    $0.tokenKind == .extensionKeyword // Extensions
             }
             .compactMap { tok -> TokenSyntax? in
                 if tok.nextToken?.nextToken?.tokenKind == TokenKind.period {
@@ -108,16 +112,16 @@ struct DiffInfo {
             }
             .sorted(by: { $0.text < $1.text })
 //            .filter { !$0.text.hasPrefix("_") }
-        
-        views       = types.filter { $0.conformsTo(namespace, type: "View") }
-        modifiers   = types.filter { $0.conformsTo(namespace, type: "ViewModifier") }
-        shapes      = types.filter { $0.conformsTo(namespace, type: "Shape") }
+
+        views = types.filter { $0.conformsTo(namespace, type: "View") }
+        modifiers = types.filter { $0.conformsTo(namespace, type: "ViewModifier") }
+        shapes = types.filter { $0.conformsTo(namespace, type: "Shape") }
         shapeStyles = types.filter { $0.conformsTo(namespace, type: "ShapeStyle") }
-        
+
         viewMethods = tokens
             .filter {
                 $0.tokenKind == .extensionKeyword &&
-                $0.nextToken?.text == "View"
+                    $0.nextToken?.text == "View"
             }
             .map { (start) -> [TokenSyntax] in
                 var cur = start
@@ -136,12 +140,12 @@ struct DiffInfo {
             }
             .reduce([], +)
             .sorted(by: { $0.text < $1.text })
-        
+
         if !quiet {
             log()
         }
     }
-    
+
     func log() {
         print("Found".green, "\(views.count)".green.bold, "View types".green)
         print("Found".green, "\(modifiers.count)".green.bold, "ViewModifier types".green)
@@ -149,7 +153,7 @@ struct DiffInfo {
         print("Found".green, "\(shapeStyles.count)".green.bold, "ShapeStyle types".green)
         print("Found".green, "\(viewMethods.count)".green.bold, "View methods\n".green)
     }
-    
+
     var module: Diff.Module {
         .init(views: Set(views.map(\.text)),
               modifiers: Set(modifiers.map(\.text)),
@@ -167,31 +171,31 @@ extension Array where Element == DiffInfo {
         let shapeStyles = map(\.shapeStyles).reduce([], +)
         let viewMethods = map(\.viewMethods).reduce([], +)
         return .init(views: views,
-              modifiers: modifiers,
-              shapes: shapes,
-              shapeStyles: shapeStyles,
-              viewMethods: viewMethods)
+                     modifiers: modifiers,
+                     shapes: shapes,
+                     shapeStyles: shapeStyles,
+                     viewMethods: viewMethods)
     }
 }
 
 struct TokamakAutoDiff: ParsableCommand {
     @Argument(help: "The path to SwiftUI .swiftinterface", transform: { URL(fileURLWithPath: $0) })
     var swiftUIPath: URL?
-    
+
     @Argument(help: "The path to TokamakCore root folder")
     var tokamakCorePath: String
-    
+
     @Argument(help: "The path to save the Swift file to", transform: { URL(fileURLWithPath: $0) })
     var output: URL?
-    
+
 //    @Argument(help: "The path to the Demos target")
 //    var demosPath: String
     @Argument(help: "The path to save the Swift file to", transform: { URL(fileURLWithPath: $0) })
     var docsOutput: URL?
-    
+
     @Flag()
     var diff: Bool = false
-    
+
     mutating func run() throws {
         guard let tokamakCoreEnumerator = FileManager.default.enumerator(atPath: tokamakCorePath) else {
             throw "TokamakCore not found.".red
@@ -207,13 +211,13 @@ struct TokamakAutoDiff: ParsableCommand {
             guard let swiftUIPath = self.swiftUIPath else {
                 throw "SwiftUI not found.".red
             }
-            
+
             // - MARK: SwiftUI
-            
+
             print("Searching SwiftUI\n".cyan.bold)
             let swiftUISource = try SyntaxParser.parse(swiftUIPath)
             let swiftUIInfo = DiffInfo(tokens: swiftUISource.tokens, namespace: "SwiftUI", quiet: false)
-            
+
             // - MARK: TokamakCore
             print("Searching TokamakCore\n".cyan.bold)
             let tokamakSource = try (tokamakCoreEnumerator.allObjects as! [String])
@@ -224,7 +228,7 @@ struct TokamakAutoDiff: ParsableCommand {
                 }
                 .combined()
             tokamakSource.log()
-            
+
             print("Diffing SwiftUI and TokamakCore\n".cyan.bold)
             let diff = Diff(swiftUI: swiftUIInfo.module, tokamak: tokamakSource.module)
             print("Missing".red, "\(diff.missing.views.count)".red.bold, "View types".red)
@@ -232,17 +236,17 @@ struct TokamakAutoDiff: ParsableCommand {
             print("Missing".red, "\(diff.missing.shapes.count)".red.bold, "Shape types".red)
             print("Missing".red, "\(diff.missing.shapeStyles.count)".red.bold, "ShapeStyle types".red)
             print("Missing".red, "\(diff.missing.viewMethods.count)".red.bold, "View methods".red)
-            
+
             try #"""
             let diff = """
             \#(String(data: try JSONEncoder().encode(diff), encoding: .utf8) ?? "")
             """
             """#
-                .write(to: output, atomically: true, encoding: .utf8)
-            
+            .write(to: output, atomically: true, encoding: .utf8)
+
             print("Saved diff file to \(output.path)")
         }
-        
+
         // - MARK: Docs
         let tokamakSource = try (tokamakCoreEnumerator.allObjects as! [String])
             .filter { $0.hasSuffix(".swift") }
@@ -283,16 +287,16 @@ struct TokamakAutoDiff: ParsableCommand {
         import TokamakDOM
         let docs = #"""
         \##(
-            (String(data: try JSONEncoder().encode(documentation), encoding: .utf8) ?? "")
+            String(data: try JSONEncoder().encode(documentation), encoding: .utf8) ?? ""
         )
         """#
         let demos: [[() -> AnyView]] = [
             \##(demos.map { "[\($0.joined(separator: ",\n"))]" }.joined(separator: ",\n"))
         ]
         """##
-            .write(to: docsOutput, atomically: true, encoding: .utf8)
+        .write(to: docsOutput, atomically: true, encoding: .utf8)
         print("Saved DocPages file to \(output.path)")
-        
+
         // - MARK: Demos
 //        print("Searching Demos\n".cyan.bold)
 //        guard let demosEnumerator = FileManager.default.enumerator(atPath: demosPath) else {

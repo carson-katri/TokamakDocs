@@ -1,11 +1,11 @@
+import DiffModel
 import TokamakDOM
 import TokamakStaticHTML
-import DiffModel
 
-struct PageView : View {
+struct PageView: View {
     let page: DocPage
     let idx: Int
-    
+
     var body: some View {
         ScrollView {
             HStack { Spacer() }
@@ -14,13 +14,13 @@ struct PageView : View {
                     .font(.title)
                     .bold()
                 Divider()
-                ForEach(Array(page.sections.enumerated()), id: \.offset) { (offset, section) in
+                ForEach(Array(page.sections.enumerated()), id: \.offset) { offset, section in
                     VStack {
 //                        VStack(alignment: .leading) {
 //                            ForEach(section.text.split(separator: "\n"), id: \.self) { line in
 //                                Text(line)
 //                                    .font(section.isCode ? .system(.body, design: .monospaced) : .body)
-////                                    .padding(.leading, line.count - line.trimming(in: .whitespace).count)
+                        ////                                    .padding(.leading, line.count - line.trimming(in: .whitespace).count)
 //                            }
 //                        }
                         if section.isCode {
@@ -34,9 +34,9 @@ struct PageView : View {
                             }
                         }
                     }
-                        .padding(section.isCode ? 10 : 0)
-                        .cornerRadius(section.isCode ? 10 : 0)
-                        .padding(section.isCode ? 10 : 0)
+                    .padding(section.isCode ? 10 : 0)
+                    .cornerRadius(section.isCode ? 10 : 0)
+                    .padding(section.isCode ? 10 : 0)
                 }
             }
         }

@@ -1,12 +1,12 @@
-import SwiftSyntax
 import DiffModel
+import SwiftSyntax
 
 extension TriviaPiece {
     var docComments: String? {
         switch self {
-        case .docLineComment(let docs):
+        case let .docLineComment(docs):
             return docs
-        case .docBlockComment(let docs):
+        case let .docBlockComment(docs):
             return docs
         default:
             return nil
@@ -24,9 +24,9 @@ func parseDocs(_ docComments: [String]) -> [DocSection] {
             while i < docComments.count, docComments[i].hasPrefix("     ") {
                 i += 1
             }
-            sections.append(DocSection(docComments[start..<min(docComments.count, i + 1)]
-                                        .map { $0.dropFirst(5) }
-                                        .joined(separator: "\n"), true))
+            sections.append(DocSection(docComments[start ..< min(docComments.count, i + 1)]
+                    .map { $0.dropFirst(5) }
+                    .joined(separator: "\n"), true))
         } else {
             sections.append(DocSection(String(docComments[i].dropFirst())))
         }
@@ -38,7 +38,7 @@ func parseDocs(_ docComments: [String]) -> [DocSection] {
 func genDocs(for syntax: SourceFileSyntax) -> [DocPage] {
     var docPages = [DocPage]()
     for token in syntax.tokens {
-        if token.tokenKind == .publicKeyword && token.nextToken?.tokenKind == .structKeyword && token.conformsTo("View") {
+        if token.tokenKind == .publicKeyword, token.nextToken?.tokenKind == .structKeyword, token.conformsTo("View") {
             if let viewName = token.nextToken?.nextToken?.text {
                 let docComments = token
                     .leadingTrivia

@@ -1,7 +1,7 @@
 import TokamakDOM
 
-//#demostart
-public struct Clicker : View {
+// #demostart
+public struct Clicker: View {
     public init() {}
     @State private var counter: Int = 0
     public var body: some View {
@@ -10,4 +10,5 @@ public struct Clicker : View {
         }
     }
 }
-//#demoend
+
+// #demoend
